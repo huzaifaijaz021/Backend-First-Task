@@ -84,7 +84,8 @@ router.delete('/delete/:id', async (req, res) => {
 //new Update the data from Frontend
 router.put('/update/:id', async (req, res) => {
     const { id } = req.params;
-    const updateData = req.body
+    console.log("🚀 ~ file: route.js:87 ~ router.put ~ params:", req.params.id)
+    const { updateData } = req.body
     console.log("🚀 ~ file: route.js:158 ~ router.put ~ req.body:", req.body)
     try {
         const updatedData = await userInfo.updateOne({ _id: id }, updateData);
@@ -92,7 +93,7 @@ router.put('/update/:id', async (req, res) => {
         if (!updatedData) {
             return res.status(404).json({ message: 'Data not updated' });
         }
-        res.json({ id, message: 'Data updated successfully' });
+        res.json({ body: req.body, id, message: 'Data updated successfully' });
         console.log('Data updated successfully');
     } catch (err) {
         console.error(err);
@@ -142,6 +143,7 @@ router.post('/insertpost', async (req, res) => {
 //show data (2)
 router.get('/showdata/:id', async (req, res) => {
     const { id } = req.params
+    console.log("🚀 ~ file: route.js:145 ~ router.get ~ params:", req.params)
     try {
         const data = await userInfo.findById(id);
         return res.status(200).json(data);
